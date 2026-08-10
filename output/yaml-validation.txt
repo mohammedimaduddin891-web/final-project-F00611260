@@ -1,0 +1,2 @@
+code/inference-platform.yaml: YAML PASS
+code/autonomy-ladder.yaml: YAML PASS

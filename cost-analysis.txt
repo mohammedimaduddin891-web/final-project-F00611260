@@ -1,0 +1,332 @@
+FINAL CAPSTONE - AI ESTATE COST ANALYSIS
+
+Cornerstone Relief International (CRI)
+Normal Tier
+
+Course-price model.
+Not a procurement quote.
+
+
+1. STARTER WORKLOAD
+
+Monthly input tokens:
+
+400,000,000
+
+Monthly output tokens:
+
+100,000,000
+
+Total:
+
+500,000,000 tokens/month
+
+
+Expected output from the adapted estate_cost.py:
+
+claude-haiku-4-5
+$900/month
+blended $1.80/1M
+
+claude-sonnet-4-6
+$2,700/month
+blended $5.40/1M
+
+gpt-5.5
+$5,000/month
+blended $10.00/1M
+
+gemini-3-flash
+$500/month
+blended $1.00/1M
+
+
+Illustrative reserved self-host node:
+
+8xH100
+
+$22,000/month
+
+Capacity:
+
+1.5B tokens/month
+
+Headroom at 500M:
+
+3.0x
+
+Effective cost at current volume:
+
+$44.00/1M tokens
+
+
+2. THEORETICAL CROSSOVER
+
+At the supplied 80 percent input / 20 percent output mix:
+
+claude-haiku-4-5:
+12.22B tokens/month
+
+claude-sonnet-4-6:
+4.07B tokens/month
+
+gpt-5.5:
+2.20B tokens/month
+
+gemini-3-flash:
+22.00B tokens/month
+
+
+Every theoretical crossover is above the starter self-host node's stated
+1.5B-token monthly capacity.
+
+Under these assumptions, the 8xH100 node does not become cheaper than the
+listed APIs on token cost before the node runs out of stated capacity.
+
+
+3. VRAM NAPKIN MATH FOR PRIVATE CASE-NOTE RAG
+
+Candidate model:
+
+Qwen/Qwen3-14B
+
+Parameters:
+
+14.8 billion
+
+
+INT4 weight estimate:
+
+14.8 billion parameters
+x
+0.5 bytes
+
+approximately:
+
+7.4 GB
+
+
+Planning reserve for KV cache and runtime:
+
+5 GB
+
+
+Subtotal:
+
+7.4 + 5.0
+
+=
+
+12.4 GB
+
+
+30 percent headroom:
+
+12.4 x 0.30
+
+=
+
+3.72 GB
+
+
+Estimated minimum:
+
+12.4 + 3.72
+
+=
+
+16.12 GB
+
+
+Architecture allocation:
+
+At least 24 GB VRAM for a low-concurrency replica.
+
+Prefer 48 GB for production concurrency, growth, and operational margin.
+
+
+This is planning math.
+
+CRI must benchmark:
+
+- actual KV cache;
+- concurrency;
+- throughput;
+- latency;
+- model quality
+
+before procurement.
+
+
+4. VECTOR STORAGE NAPKIN MATH
+
+Assumption:
+
+2,000,000 chunks
+
+1536 dimensions
+
+FP32
+
+4 bytes per dimension
+
+
+Raw vectors:
+
+2,000,000
+x
+1536
+x
+4
+
+=
+
+12,288,000,000 bytes
+
+approximately:
+
+12.29 GB
+
+
+Add 35 percent for index and metadata:
+
+12.29 x 1.35
+
+=
+
+approximately 16.59 GB
+
+
+Planning allocation:
+
+25 GB for vector and index storage.
+
+
+This excludes:
+
+- encrypted source documents;
+- audit logs;
+- database overhead;
+- backups.
+
+
+MODEL REGISTRY RESERVE
+
+Two model revisions at approximately 10 GB each plus metadata and rollback
+margin:
+
+approximately 40 GB
+
+
+INITIAL HOT AI WORKING SET
+
+25 GB vectors
++
+40 GB model registry
+
+=
+
+approximately 65 GB
+
+excluding source documents, audit history, and backups.
+
+
+5. RECOMMENDATION
+
+CRI should use a HYBRID cost model.
+
+
+APPROVED EXTERNAL APIs
+
+Use for:
+
+- public information;
+- low-sensitivity work;
+- de-identified productivity.
+
+They are much cheaper than the supplied 8xH100 node at the starter workload.
+
+
+RESTRICTED BENEFICIARY RAG
+
+Use a right-sized private inference service.
+
+The reasons are:
+
+- privacy;
+- data residency;
+- egress control;
+- auditability;
+- beneficiary trust.
+
+Do not claim that the supplied 8xH100 node saves money.
+
+
+TRAINING
+
+Do not purchase a permanent training cluster.
+
+Use ephemeral GPU capacity for:
+
+- evaluation;
+- approved adapter training;
+- approved task-specific fine-tuning.
+
+
+6. CONSUMPTION GUARDRAILS
+
+Organization AI API cap:
+
+$200/day initially
+
+
+Alerts:
+
+50 percent
+75 percent
+90 percent
+100 percent
+
+
+At 100 percent:
+
+deny nonessential batch and agent work.
+
+Preserve:
+
+- incident response;
+- approved critical workloads.
+
+
+Any new fixed GPU commitment above:
+
+$5,000/month
+
+requires:
+
+- Director of IT approval;
+- Finance and Procurement approval;
+- refreshed crossover measurement.
+
+
+Provider/model price changes require rerunning:
+
+code/estate_cost.py
+
+
+7. DECISION TO DEFEND
+
+The private beneficiary-RAG decision is a privacy and control decision.
+
+It is not a token-cost claim.
+
+If CRI can obtain contractually protected private inference with equivalent:
+
+- data residency;
+- egress control;
+- deletion guarantees;
+- security controls;
+- auditability
+
+at much lower operational burden, the nine-person team should reconsider
+owning dedicated GPU infrastructure.

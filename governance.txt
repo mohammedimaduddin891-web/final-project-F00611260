@@ -1,0 +1,372 @@
+FINAL CAPSTONE - AI GOVERNANCE FRAMEWORK
+
+Cornerstone Relief International (CRI)
+Normal Tier
+
+Checked:
+2026-08-10
+
+
+PURPOSE
+
+CRI governs AI as an organizational system rather than as a collection of
+chatbots.
+
+A control is considered implemented only when it has:
+
+- a named human owner;
+- a durable artifact;
+- a gate or review cadence.
+
+
+FRAMEWORK LAYERS
+
+
+NIST AI RMF 1.0
+
+CRI uses:
+
+GOVERN
+MAP
+MEASURE
+MANAGE
+
+as the primary operational risk structure.
+
+NIST AI RMF is used to organize:
+
+- ownership;
+- risk identification;
+- evidence;
+- measurement;
+- treatment;
+- monitoring.
+
+
+EU AI ACT
+
+CRI uses the EU AI Act as a legal and risk-design layer.
+
+Architecture anchors include:
+
+Article 12
+logging
+
+Article 14
+human oversight
+
+
+As checked 2026-08-10:
+
+The AI Omnibus entered into force on:
+
+2026-07-27
+
+
+Relevant high-risk application dates used in this project:
+
+Annex III:
+
+2027-12-02
+
+
+Certain product-embedded systems:
+
+2028-08-02
+
+
+Actual legal classification must be rechecked for each real CRI system and
+jurisdiction.
+
+
+ISO/IEC 42001:2023
+
+CRI uses ISO/IEC 42001 as the management-system layer for:
+
+- establishing AI policy;
+- operating AI controls;
+- reviewing effectiveness;
+- managing corrective action;
+- continually improving AI governance.
+
+
+TEN CONTROL SET
+
+
+1. MODEL REGISTRY AND LINEAGE
+
+Owner:
+
+Leah Mensah - ML Platform Engineer
+
+Artifact:
+
+model registry
+signed OCI model artifact
+promotion record
+
+Gate:
+
+every promotion
+immutable revision required
+
+NIST:
+
+Govern
+Manage
+
+
+2. MODEL AND DATA DOCUMENTATION
+
+Owner:
+
+Naomi Brooks - Applications and RAG Product Owner
+
+Artifact:
+
+model card
+datasheet
+intended-use statement
+prohibited-use statement
+
+Gate:
+
+before staging
+after material change
+
+NIST:
+
+Map
+Measure
+
+
+3. AIBOM AND SUPPLY CHAIN
+
+Owner:
+
+Sofia Alvarez - Security and Identity Lead
+
+Artifact:
+
+CycloneDX ML-BOM or SPDX 3.0 profile
+signatures
+scan results
+
+Gate:
+
+every release
+
+NIST:
+
+Govern
+Manage
+
+
+4. LOGGING AND RETENTION
+
+Owner:
+
+Samuel Reed - SRE and Automation Lead
+
+Artifact:
+
+WORM/object-lock audit logs
+signed evaluation records
+signed deployment records
+
+Gate:
+
+continuous logging
+quarterly retention review
+
+EU anchor:
+
+Article 12
+
+NIST:
+
+Measure
+
+
+5. AUTONOMY LADDER AND APPROVAL GATES
+
+Owner:
+
+Maya Chen - Director of IT
+
+Artifact:
+
+code/autonomy-ladder.yaml
+approval records
+
+Gate:
+
+every action class
+90-day policy review
+
+EU anchor:
+
+Article 14
+
+NIST:
+
+Govern
+Manage
+
+
+6. LLM SECURITY
+
+Owner:
+
+Sofia Alvarez - Security and Identity Lead
+
+Artifact:
+
+OWASP LLM Top 10 -> MITRE ATLAS map
+red-team report
+remediation tickets
+
+Gate:
+
+quarterly
+before material agent or tool expansion
+
+NIST:
+
+Measure
+Manage
+
+
+7. HUMAN OVERSIGHT
+
+Owner:
+
+Maya Chen - Director of IT
+
+Artifact:
+
+named accountable owner
+escalation matrix
+
+Gate:
+
+before high-impact deployment
+annual review
+
+EU anchor:
+
+Article 14
+
+NIST:
+
+Govern
+
+
+8. CONSUMPTION AND COST
+
+Owner:
+
+Peter Walsh - Finance and Procurement Lead
+
+Artifact:
+
+spend caps
+alerts
+exception approvals
+monthly cost report
+
+Gate:
+
+daily cap
+monthly finance review
+
+NIST:
+
+Manage
+
+
+9. RISK CLASSIFICATION
+
+Owner:
+
+Grace Kim - Data Protection and Beneficiary Systems Lead
+
+Artifact:
+
+AI risk-register entry
+data classification
+impact assessment where required
+
+Gate:
+
+before first use
+every 90 days
+material-change trigger
+
+NIST:
+
+Map
+
+
+10. INCIDENT, DRIFT, AND RECOVERY
+
+Owner:
+
+Ruth Njoroge - Business Continuity and Service Desk Lead
+
+Artifact:
+
+AI incident runbook
+on-call roster
+restore and rebuild evidence
+
+Gate:
+
+exercise twice per year
+after a severe incident
+
+NIST:
+
+Manage
+
+
+JUDGMENT AND ACCOUNTABILITY
+
+No model or agent can:
+
+- approve its own production promotion;
+- expand its own permissions;
+- accept its own risk;
+- authorize a financial transfer;
+- waive a failed security gate;
+- waive a failed privacy gate.
+
+
+Named humans remain accountable for those decisions.
+
+
+CRI's highest unattended autonomy is limited to narrow, reversible,
+low-blast-radius actions whose outcomes can be independently verified.
+
+
+The decision to protect beneficiary data takes priority over convenience or
+maximum automation.
+
+
+REVIEW
+
+The Director of IT chairs a quarterly AI governance review.
+
+The review examines:
+
+- new AI systems;
+- incidents;
+- model changes;
+- tool changes;
+- security findings;
+- evaluation drift;
+- cost;
+- regulatory changes;
+- policy exceptions.
+
+A severe AI incident triggers an out-of-cycle review.

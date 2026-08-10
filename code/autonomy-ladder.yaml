@@ -1,0 +1,110 @@
+# CRI governed-autonomy policy.
+# Human judgment is deliberately kept above high-blast-radius, security-sensitive,
+# irreversible, and recurring-cost actions.
+
+version: 2
+organization: "Cornerstone Relief International"
+policy_owner: "Maya Chen - Director of IT"
+review_cadence_days: 90
+
+defaults:
+  audit_log: "WORM-required"
+  utc_timestamp: required
+  actor_identity: required
+  model_id_pinned: true
+  verify_after_action: required
+  spend_cap_usd_per_day: 200
+
+actions:
+  - name: read_observability
+    tier: observe
+    owner: "Samuel Reed - SRE and Automation Lead"
+    gate: "none; authenticated read-only access only"
+    guardrails:
+      read_only: true
+      max_blast_radius: none
+      external_write: false
+    rationale: "Observation does not change state and is required for diagnosis."
+
+  - name: propose_patch_priority
+    tier: recommend
+    owner: "Sofia Alvarez - Security and Identity Lead"
+    gate: "human reviews recommendation and schedules the change"
+    guardrails:
+      state_change: false
+      evidence_required: true
+    rationale: "The agent may rank evidence, but maintenance timing and accepted risk remain human decisions."
+
+  - name: delete_persistent_volume
+    tier: recommend
+    owner: "Daniel Okoro - Infrastructure and Cloud Lead"
+    gate: "approved change ticket; human executes the deletion"
+    guardrails:
+      irreversible: true
+      backup_restore_point_required: true
+      human_in_the_loop: mandatory
+    rationale: "Irreversible data loss is outside unattended autonomy."
+
+  - name: modify_firewall_rule
+    tier: recommend
+    owner: "Sofia Alvarez - Security and Identity Lead"
+    gate: "security review plus approved change ticket"
+    guardrails:
+      trust_boundary_change: true
+      lethal_trifecta_check: required
+      rollback_plan: required
+    rationale: "Firewall changes alter the trust boundary and can expose multiple systems."
+
+  - name: scale_deployment
+    tier: approve
+    owner: "Daniel Okoro - Infrastructure and Cloud Lead"
+    gate: "Daniel approves the prepared change"
+    guardrails:
+      max_replicas_delta: 4
+      cost_review: required
+      rollback: automatic
+    rationale: "Scaling is reversible but changes capacity and recurring spend."
+
+  - name: rotate_credential
+    tier: approve
+    owner: "Sofia Alvarez - Security and Identity Lead"
+    gate: "Sofia confirms identity and approves one rotation"
+    guardrails:
+      out_of_band_verification: required
+      one_credential_per_approval: true
+      rollback_plan: required
+    rationale: "Credential changes are security-sensitive and must not be triggered by injected content."
+
+  - name: promote_model_to_production
+    tier: approve
+    owner: "Leah Mensah - ML Platform Engineer"
+    gate: "Maya Chen and Grace Kim approve after evaluation and privacy/security gates pass"
+    guardrails:
+      model_card: required
+      datasheet: required
+      aibom: required
+      evaluation_gate: required
+      rollback_alias: required
+    rationale: "A model promotion changes organizational behavior and data-handling risk."
+
+  - name: restart_stateless_pod
+    tier: act
+    owner: "Samuel Reed - SRE and Automation Lead"
+    gate: "policy guardrails only"
+    guardrails:
+      max_blast_radius: "1_pod"
+      rate_limit: "1 restart per workload per 10 minutes"
+      readiness_verification: required
+      rollback: automatic
+    rationale: "A single stateless restart is low-blast-radius, reversible, and easy to verify."
+
+  - name: rebuild_embedding_index
+    tier: act
+    owner: "Naomi Brooks - Applications and RAG Product Owner"
+    gate: "policy guardrails only"
+    guardrails:
+      source_dataset_must_be_signed: true
+      source_data_deleted: false
+      build_new_index_before_alias_switch: true
+      rollback: "restore previous index alias"
+    rationale: "The index is derived and reproducible; the protected source corpus is never modified."

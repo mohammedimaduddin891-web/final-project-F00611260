@@ -1,0 +1,2 @@
+tiers: ['act', 'approve', 'observe', 'recommend']
+AUTONOMY LADDER PASS

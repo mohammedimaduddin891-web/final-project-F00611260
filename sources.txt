@@ -1,0 +1,67 @@
+PRIMARY / OFFICIAL SOURCES CHECKED FOR THE CAPSTONE
+
+Checked:
+2026-08-10
+
+
+Course Chapter 16:
+
+https://cuwcs.com/litman-books/system-admin-and-maintenance/chapters/16
+
+
+NIST AI Risk Management Framework:
+
+https://www.nist.gov/itl/ai-risk-management-framework
+
+https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook
+
+
+EU AI Act:
+
+https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+https://digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force
+
+
+ISO/IEC 42001:2023:
+
+https://www.iso.org/standard/42001
+
+
+OWASP GenAI / LLM Top 10:
+
+https://genai.owasp.org/llm-top-10/
+
+
+MITRE ATLAS:
+
+https://atlas.mitre.org/
+
+https://github.com/mitre-atlas/atlas-data
+
+
+Kubernetes Dynamic Resource Allocation:
+
+https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/
+
+
+NVIDIA GPU Operator release notes:
+
+https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/release-notes.html
+
+
+Qwen3-14B candidate model:
+
+https://huggingface.co/Qwen/Qwen3-14B
+
+
+COST NOTE
+
+The API prices in code/estate_cost.py are course snapshots supplied by the
+starter file.
+
+They are illustrative.
+
+They are not current vendor quotes.
+
+They must be rechecked before a real procurement decision.

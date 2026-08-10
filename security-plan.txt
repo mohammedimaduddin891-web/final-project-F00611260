@@ -1,0 +1,433 @@
+FINAL CAPSTONE - SECURITY PLAN
+
+Cornerstone Relief International (CRI)
+Normal Tier
+
+Threat map checked:
+2026-08-10
+
+
+1. TRADITIONAL SECURITY BASELINE
+
+
+IDENTITY
+
+CRI uses:
+
+- federated identity;
+- phishing-resistant MFA or passkeys for privileged users;
+- role-based access;
+- just-in-time privilege for administrators;
+- separate workload identities for services and agents;
+- rapid joiner/mover/leaver processing.
+
+
+LEAST PRIVILEGE
+
+Every human and AI agent receives only the data and tools required for the
+current role.
+
+Agent credentials are not shared with humans or other agents.
+
+RAG retrieval uses the authenticated user's identity and document ACLs.
+
+
+SEGMENTATION
+
+Separate security zones exist for:
+
+- management;
+- enterprise applications;
+- donor and finance systems;
+- beneficiary data;
+- AI inference;
+- development.
+
+The beneficiary RAG endpoint is private.
+
+Its data plane has default-deny outbound egress.
+
+External AI APIs are reached only through an approved gateway with DLP policy.
+
+
+2. DEEPFAKE-RESISTANT PAYMENT CONTROL
+
+No:
+
+- video call;
+- voice call;
+- email;
+- chat message;
+- AI-generated message
+
+can by itself authorize a wire transfer or bank-detail change.
+
+Finance must:
+
+1. call a known number already stored in the trusted directory;
+2. verify the requester out of band;
+3. obtain a second named human approval.
+
+A phone number, QR code, or link supplied inside the suspicious message is
+never used for verification.
+
+
+3. BACKUP AND RANSOMWARE CONTROL
+
+Donor and beneficiary systems use:
+
+- immutable off-site backups;
+- least-privilege backup credentials;
+- tested restoration;
+- documented RPO/RTO.
+
+Backup control planes are separated from routine administrator credentials.
+
+
+4. AI TRUST BOUNDARIES
+
+
+BOUNDARY A - USER TO APPLICATION
+
+Authenticate the user before retrieval.
+
+Classify the data before choosing the model lane.
+
+
+BOUNDARY B - RETRIEVAL TO MODEL
+
+Retrieved:
+
+- webpages;
+- tickets;
+- documents;
+- filenames;
+- case notes
+
+are UNTRUSTED CONTENT.
+
+They are wrapped as data.
+
+They cannot grant tool authority or override system policy.
+
+
+BOUNDARY C - MODEL OR AGENT TO TOOLS
+
+MCP and other tool access is:
+
+- allowlisted;
+- least privilege;
+- identity-scoped.
+
+High-impact tools are unavailable without an approval gate.
+
+Tool descriptions and tool responses are also treated as untrusted input.
+
+
+BOUNDARY D - AI TO EXTERNAL SYSTEMS
+
+Restricted beneficiary RAG has no arbitrary:
+
+- outbound HTTP;
+- email;
+- export tool.
+
+Approved exports require:
+
+- destination allowlist;
+- DLP;
+- audit logging;
+- human approval.
+
+This implements the Rule of Two against the lethal trifecta.
+
+
+BOUNDARY E - OUTPUT TO DOWNSTREAM SYSTEM
+
+LLM output is never directly executed as:
+
+- shell;
+- SQL;
+- HTML;
+- policy;
+- payment instruction.
+
+Structured output is schema-validated.
+
+Privileged actions require separate authorization.
+
+
+5. OWASP LLM TOP 10 (2025) TO MITRE ATLAS MAP
+
+
+LLM01 - PROMPT INJECTION
+
+MITRE ATLAS:
+
+AML.T0051
+LLM Prompt Injection
+
+AML.T0051.001
+Indirect Prompt Injection
+
+CRI risk:
+
+Malicious text in a case note, ticket, or webpage changes the model's intended
+behavior.
+
+Controls:
+
+- untrusted-content boundary;
+- least-privilege tools;
+- Rule of Two;
+- human gates.
+
+
+LLM02 - SENSITIVE INFORMATION DISCLOSURE
+
+MITRE ATLAS:
+
+AML.T0085.000
+RAG Databases
+
+AML.T0086
+Exfiltration via AI Agent Tool Invocation
+
+CRI risk:
+
+Beneficiary names, locations, medical information, or other sensitive data are
+retrieved or exported to an unauthorized destination.
+
+Controls:
+
+- identity-scoped retrieval;
+- DLP;
+- encryption;
+- no arbitrary egress;
+- audit retrieval and exports.
+
+
+LLM03 - SUPPLY CHAIN
+
+MITRE ATLAS:
+
+AML.T0010
+AI Supply Chain Compromise
+
+AML.T0110
+AI Agent Tool Poisoning
+
+CRI risk:
+
+A compromised model, software package, OCI image, or MCP tool enters
+production.
+
+Controls:
+
+- pinned versions;
+- immutable digests;
+- signatures;
+- AIBOM;
+- scanning;
+- restricted registries;
+- tool-definition review.
+
+
+LLM04 - DATA AND MODEL POISONING
+
+MITRE ATLAS:
+
+AML.T0020
+Training Data Poisoning
+
+AML.T0070
+RAG Poisoning
+
+AML.T0099
+AI Agent Tool Data Poisoning
+
+CRI risk:
+
+Poisoned content contaminates fine-tuning, retrieval, or agent decisions.
+
+Controls:
+
+- data provenance;
+- quarantine;
+- signed curated datasets;
+- ingestion review;
+- rebuild indexes from protected source data.
+
+
+LLM05 - IMPROPER OUTPUT HANDLING
+
+MITRE ATLAS:
+
+AML.T0067
+LLM Trusted Output Components Manipulation
+
+CRI risk:
+
+Model output becomes executable shell, SQL, HTML, or trusted workflow input.
+
+Controls:
+
+- schema validation;
+- escaping;
+- sanitization;
+- separate authorization;
+- never directly execute free-form model text.
+
+
+LLM06 - EXCESSIVE AGENCY
+
+MITRE ATLAS:
+
+AML.T0053
+AI Agent Tool Invocation
+
+AML.T0086
+Exfiltration via AI Agent Tool Invocation
+
+CRI risk:
+
+An agent performs a valid but unauthorized destructive, security-sensitive, or
+external action.
+
+Controls:
+
+- autonomy ladder;
+- minimum tool scope;
+- one-action approval;
+- blast-radius limits;
+- verification;
+- WORM audit.
+
+
+LLM07 - SYSTEM PROMPT LEAKAGE
+
+MITRE ATLAS:
+
+AML.T0069.002
+System Prompt
+
+AML.T0084
+Discover AI Agent Configuration
+
+CRI risk:
+
+An attacker learns hidden instructions, data sources, or available tools and
+uses that knowledge to bypass controls.
+
+Controls:
+
+- do not store secrets in system prompts;
+- minimize prompt privilege;
+- separate credentials from agent configuration;
+- protect manifests.
+
+
+LLM08 - VECTOR AND EMBEDDING WEAKNESSES
+
+MITRE ATLAS:
+
+AML.T0070
+RAG Poisoning
+
+AML.T0085.000
+RAG Databases
+
+CRI risk:
+
+Cross-user retrieval, poisoned embeddings, or unauthorized access to indexed
+beneficiary data.
+
+Controls:
+
+- namespace isolation;
+- document ACLs;
+- provenance;
+- retrieval filtering;
+- encryption;
+- rebuildable indexes.
+
+
+LLM09 - MISINFORMATION
+
+Closest relevant ATLAS entries:
+
+AML.T0067
+LLM Trusted Output Components Manipulation
+
+AML.T0048
+External Harms
+
+This is not a perfect one-to-one mapping.
+
+CRI risk:
+
+Fabricated operational, beneficiary, or financial information is accepted as
+fact.
+
+Controls:
+
+- source citations;
+- evidence display;
+- human verification;
+- no financial authority.
+
+
+LLM10 - UNBOUNDED CONSUMPTION
+
+MITRE ATLAS:
+
+AML.T0029
+Denial of AI Service
+
+CRI risk:
+
+Token loops, agent loops, or oversized requests exhaust capacity or budget.
+
+Controls:
+
+- per-user limits;
+- per-request token limits;
+- tool-call limits;
+- concurrency controls;
+- $200/day organizational cap;
+- circuit breakers.
+
+
+6. AI SECURITY TESTING
+
+Quarterly tests include:
+
+- direct prompt injection;
+- indirect RAG prompt injection;
+- cross-user retrieval;
+- malicious tool metadata;
+- excessive agency;
+- output validation failures;
+- cost exhaustion.
+
+Findings become tracked remediation tickets.
+
+Model or tool expansion cannot bypass security review simply because the system
+is AI-assisted.
+
+
+7. ACCOUNTABILITY
+
+Security control owner:
+
+Sofia Alvarez
+
+Beneficiary data-protection owner:
+
+Grace Kim
+
+Operational/accountable executive:
+
+Maya Chen
+
+No AI model or agent may accept risk on behalf of those humans.

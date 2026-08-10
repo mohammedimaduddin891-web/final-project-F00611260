@@ -1,0 +1,21 @@
+Workload: 500M tokens/month (400M in / 100M out)
+
+Per-token API (course price snapshots):
+  claude-haiku-4-5     $         900/mo blended=$1.80/1M
+  claude-sonnet-4-6    $       2,700/mo blended=$5.40/1M
+  gpt-5.5              $       5,000/mo blended=$10.00/1M
+  gemini-3-flash       $         500/mo blended=$1.00/1M
+
+Self-host (illustrative reserved node):
+  8xH100 node          $      22,000/mo (capacity=1.5B tokens/mo; headroom=3.0x)
+  effective $/1M tokens at current volume: $44.00
+
+Theoretical API-to-self-host crossover:
+  claude-haiku-4-5      12.22B tokens/mo (ABOVE node capacity)
+  claude-sonnet-4-6      4.07B tokens/mo (ABOVE node capacity)
+  gpt-5.5                2.20B tokens/mo (ABOVE node capacity)
+  gemini-3-flash        22.00B tokens/mo (ABOVE node capacity)
+
+CRI architectural conclusion:
+  Under these course assumptions, the single 8xH100 node does not beat any listed API on token cost within its 1.5B-token monthly capacity.
+  Therefore self-hosting restricted beneficiary RAG must be justified by privacy, residency, control, or resilience - not by this token-cost model.

@@ -1,0 +1,8 @@
+PASS: architecture.docx
+PASS: ai-strategy.txt
+PASS: automation-plan.txt
+PASS: security-plan.txt
+PASS: cost-analysis.txt
+PASS: governance.txt
+PASS: REPORT.docx
+PASS: agent-log.txt

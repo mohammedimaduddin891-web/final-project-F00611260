@@ -1,0 +1,167 @@
+CRI AI-NATIVE GOVERNANCE CONTROL SET
+Checked: 2026-08-10
+
+Framework anchors:
+- NIST AI RMF 1.0: Govern / Map / Measure / Manage.
+- EU AI Act: risk-based legal framework; Article 12 logging and Article 14 human oversight are used as design anchors.
+- ISO/IEC 42001:2023: AI management system requirements and continual improvement.
+
+1. MODEL REGISTRY, VERSIONING, LINEAGE, ALIASES
+
+Owner:
+Leah Mensah - ML Platform Engineer
+
+Artifact:
+model registry + signed OCI artifact + promotion record
+
+Gate/cadence:
+every promotion; immutable revision required before production
+
+Framework anchor:
+NIST Govern/Manage; ISO 42001 lifecycle control
+
+
+2. MODEL AND DATA DOCUMENTATION
+
+Owner:
+Naomi Brooks - Applications and RAG Product Owner
+
+Artifact:
+model card + datasheet + approved-use statement
+
+Gate/cadence:
+before staging and after material data/model change
+
+Framework anchor:
+NIST Map/Measure; ISO 42001 documentation
+
+
+3. AIBOM / AI SUPPLY-CHAIN RECORD
+
+Owner:
+Sofia Alvarez - Security and Identity Lead
+
+Artifact:
+CycloneDX ML-BOM or SPDX 3.0 profile + signatures
+
+Gate/cadence:
+every release
+
+Framework anchor:
+NIST Govern/Manage; ISO 42001 supplier/control evidence
+
+
+4. LOGGING AND RETENTION
+
+Owner:
+Samuel Reed - SRE and Automation Lead
+
+Artifact:
+WORM/object-lock audit trail + signed deployment/evaluation records
+
+Gate/cadence:
+continuous; quarterly retention review
+
+Framework anchor:
+EU AI Act Article 12 design anchor; NIST Measure
+
+
+5. AUTONOMY LADDER AND APPROVAL GATES
+
+Owner:
+Maya Chen - Director of IT
+
+Artifact:
+code/autonomy-ladder.yaml + approval records
+
+Gate/cadence:
+every action class; policy review every 90 days
+
+Framework anchor:
+EU AI Act Article 14 design anchor; NIST Govern/Manage
+
+
+6. LLM SECURITY PROGRAM
+
+Owner:
+Sofia Alvarez - Security and Identity Lead
+
+Artifact:
+OWASP LLM Top 10 + MITRE ATLAS map + red-team findings + remediation tickets
+
+Gate/cadence:
+quarterly red team and before major agent/tool expansion
+
+Framework anchor:
+NIST Measure/Manage; ISO 42001 risk treatment
+
+
+7. HUMAN OVERSIGHT
+
+Owner:
+Maya Chen - Director of IT
+
+Artifact:
+named accountable owner per AI system + escalation matrix
+
+Gate/cadence:
+before deployment of high-impact systems and annual review
+
+Framework anchor:
+EU AI Act Article 14 design anchor; NIST Govern
+
+
+8. CONSUMPTION AND COST GUARDRAILS
+
+Owner:
+Peter Walsh - Finance and Procurement Lead
+
+Artifact:
+daily/monthly spend caps + alerts + approved exceptions
+
+Gate/cadence:
+daily automated check; monthly finance review
+
+Framework anchor:
+NIST Manage; ISO 42001 operational control
+
+
+9. RISK CLASSIFICATION
+
+Owner:
+Grace Kim - Data Protection and Beneficiary Systems Lead
+
+Artifact:
+AI risk register entry + data classification + impact assessment where applicable
+
+Gate/cadence:
+before first use; 90-day review; material-change review
+
+Framework anchor:
+NIST Map; EU AI Act risk classification; ISO 42001 risk assessment
+
+
+10. INCIDENT, DRIFT, AND RECOVERY RESPONSE
+
+Owner:
+Ruth Njoroge - Business Continuity and Service Desk Lead
+
+Artifact:
+AI incident runbook + on-call rotation + restore/rebuild test evidence
+
+Gate/cadence:
+tested twice per year and after a severe incident
+
+Framework anchor:
+NIST Manage; ISO 42001 corrective action/continual improvement
+
+
+Regulatory note:
+
+As checked 2026-08-10, the EU AI Omnibus entered into force on 2026-07-27.
+
+The relevant high-risk application dates used in this project are 2027-12-02
+for Annex III high-risk systems and 2028-08-02 for certain product-embedded
+high-risk systems.
+
+Re-check before any future compliance certification.

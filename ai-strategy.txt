@@ -1,0 +1,205 @@
+FINAL CAPSTONE - AI STRATEGY
+
+Cornerstone Relief International (CRI)
+Normal Tier
+Checked: 2026-08-10
+
+
+1. STRATEGIC POSITION
+
+CRI should become AI-native without becoming AI-dependent.
+
+AI is an assistive operating layer for a nine-person IT team, not a replacement
+for accountable human judgment.
+
+The architecture separates low-sensitivity productivity use from restricted
+beneficiary workloads.
+
+Public or general-purpose AI services must never receive beneficiary case
+notes, medical details, credentials, donor payment information, or other
+restricted data.
+
+
+2. TOOL THREAD - WHAT CRI USES AI FOR
+
+CRI uses AI as a tool for:
+
+- summarizing infrastructure and security telemetry;
+- drafting incident hypotheses and runbook suggestions;
+- helping administrators write and review scripts, IaC, and documentation;
+- translating and summarizing public or approved internal material;
+- natural-language search over approved policy and operational knowledge;
+- assisting with ticket classification and repetitive service-desk work.
+
+AI output in this thread is advisory unless the action is explicitly permitted
+by the autonomy ladder.
+
+AI never authorizes a wire transfer, changes identity or firewall policy on its
+own, accepts risk, or signs a governance decision.
+
+
+3. WORKLOAD THREAD - WHAT CRI RUNS
+
+The primary restricted workload is a private beneficiary case-note RAG service.
+
+It retrieves only records the authenticated user is already authorized to see.
+
+Retrieved documents are treated as untrusted data, not instructions.
+
+The service has no arbitrary external egress and cannot email or export
+restricted content without an approved workflow.
+
+Other planned workloads are:
+
+- a small local embedding service;
+- model and evaluation jobs;
+- AI-assisted operations;
+- approved external APIs for low-sensitivity productivity.
+
+CRI does not train a foundation model.
+
+
+4. MODEL TIERS
+
+TIER A - SMALL / LOW-COST MODELS
+
+Use for:
+
+- classification;
+- formatting;
+- routing;
+- extraction;
+- simple summaries.
+
+Prefer the smallest model that meets the measured quality target.
+
+
+TIER B - PRIVATE RESTRICTED RAG MODEL
+
+Candidate:
+
+Qwen/Qwen3-14B
+
+Target deployment:
+
+private inference lane
+INT4 serving
+
+This model is a candidate, not an automatic production approval.
+
+Production requires:
+
+- immutable model revision or signed OCI digest;
+- evaluation;
+- privacy review;
+- security review;
+- model card;
+- datasheet;
+- AIBOM;
+- human approval.
+
+
+TIER C - HIGH-CAPABILITY EXTERNAL REASONING MODELS
+
+Use only through an approved enterprise API for:
+
+- public information;
+- low-sensitivity organizational data;
+- de-identified data.
+
+Restricted beneficiary records are prohibited.
+
+
+EMBEDDING TIER
+
+Use a small embedding model.
+
+Retrieval must preserve tenant and document ACLs.
+
+Embeddings and vector indexes are treated as sensitive derived data.
+
+
+5. BUILD VS BUY VS SELF-HOST
+
+BUY
+
+CRI buys commodity capabilities that a nine-person team should not recreate:
+
+- identity;
+- security tooling;
+- object storage;
+- backup services;
+- approved external AI APIs for low-sensitivity workloads.
+
+
+BUILD
+
+CRI builds only the CRI-specific value and control layer:
+
+- retrieval policies;
+- connectors;
+- evaluation suites;
+- approval workflows;
+- data classification;
+- observability;
+- governance integrations.
+
+
+SELF-HOST / PRIVATE
+
+CRI keeps beneficiary case-note RAG on a private controlled inference lane.
+
+This choice is made for:
+
+- privacy;
+- residency;
+- egress control;
+- auditability;
+- beneficiary trust.
+
+It is not made because the supplied 8xH100 cost model is cheaper.
+
+
+6. COST POSITION
+
+CRI will not buy an 8xH100 node merely for token savings.
+
+At the supplied 500M-token monthly workload, the course model places the
+reserved node at $22,000/month.
+
+The listed API examples cost approximately $500-$5,000/month.
+
+A smaller right-sized private GPU service or managed private endpoint is
+preferred until measured demand justifies larger dedicated infrastructure.
+
+
+7. STANDARDS POSITION
+
+CRI treats durable interfaces as architecture and products as replaceable
+implementations.
+
+Preferred contracts include:
+
+- OpenTelemetry for observability;
+- OpenAI-compatible inference APIs;
+- OCI artifacts for model distribution;
+- MCP with least-privilege scopes for agent-to-tool access;
+- standard Kubernetes resource APIs.
+
+
+8. HUMAN JUDGMENT
+
+The final architectural judgment is hybrid and conservative.
+
+Automate observation and narrow reversible repair.
+
+Keep these under named human control:
+
+- data deletion;
+- security-boundary changes;
+- model promotion;
+- financial commitment;
+- sensitive identity operations.
+
+This boundary is intentional because CRI serves vulnerable people whose data
+cannot be treated as an experiment.

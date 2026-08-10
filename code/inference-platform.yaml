@@ -1,0 +1,92 @@
+# CRI 2030 AI-native inference/training reference.
+# Planning architecture only - not a deploy-ready Kubernetes manifest.
+# Technical version lines were checked 2026-08-10 and must be rechecked at implementation.
+
+organization: "Cornerstone Relief International"
+version: 2
+checked_date: "2026-08-10"
+
+platform:
+  control_plane:
+    kubernetes: "1.35.x"
+    gpu_operator: "26.3.3"
+    scheduler: "kueue + volcano"
+    identity: "federated-oidc + workload-identity + rbac"
+    telemetry: "opentelemetry"
+
+  resource_policy:
+    device_api: "kubernetes-dra"
+    device_class: "gpu.nvidia.com"
+    preferred_product: "H100-or-equivalent"
+    minimum_inference_vram_gb: 24
+    shared_gpu_isolation: "MIG when workloads of different trust levels share a GPU"
+
+  training_lane:
+    purpose:
+      - "evaluation"
+      - "adapter or task-specific fine-tuning when approved"
+    foundation_pretraining: false
+    data_policy: "de-identified or specifically approved datasets only"
+    runtime: "Kubeflow or KubeRay job"
+    execution: "ephemeral GPU capacity when required"
+    promotion_gate:
+      - "evaluation evidence"
+      - "model card"
+      - "datasheet"
+      - "AIBOM"
+      - "security review"
+      - "named human approval"
+
+  inference_lane:
+    engine: "vllm"
+    runtime: "kserve"
+    api: "openai-compatible"
+    model_source: "signed-oci-artifact"
+    candidate_model_id: "Qwen/Qwen3-14B"
+    quantization_target: "INT4"
+    production_revision_policy: "immutable model revision or OCI digest required before promotion"
+    rag:
+      system: "beneficiary-case-note-rag"
+      data_class: "restricted-beneficiary"
+      vector_store: "pgvector-or-equivalent"
+      retrieval_identity: "inherit authenticated user identity and document ACLs"
+      arbitrary_outbound_egress: false
+      retrieved_content_trust: "untrusted-data"
+
+  approved_external_api_lane:
+    allowed_data:
+      - "public"
+      - "internal-low-sensitivity"
+      - "de-identified"
+    prohibited_data:
+      - "beneficiary case notes"
+      - "medical details"
+      - "credentials"
+      - "donor payment data"
+    egress: "approved-provider allowlist through central gateway"
+
+  governance_hooks:
+    model_registry: "required"
+    model_id_pinned: true
+    aibom: "required-per-release"
+    audit_log: "WORM-object-lock"
+    agent_interop: "MCP with least-privilege tool scopes"
+    spend_cap_usd_per_day: 200
+    human_approval_for:
+      - "model promotion"
+      - "credential rotation"
+      - "capacity changes above policy"
+      - "trust-boundary changes"
+
+  continuity:
+    irreplaceable:
+      - "curated datasets"
+      - "prompt library"
+      - "fine-tuned weights"
+      - "model registry metadata"
+      - "AIBOM and evaluation evidence"
+    rebuildable:
+      - "embeddings"
+      - "vector indexes"
+      - "derived caches"
+    recovery_rule: "restore protected sources first, then rebuild derived AI artifacts"

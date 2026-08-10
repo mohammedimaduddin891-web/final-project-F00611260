@@ -1,0 +1,305 @@
+FINAL CAPSTONE - AGENT ACTIVITY LOG
+
+Student:
+Mohammed Imad Uddin
+
+Student ID:
+F00611260
+
+
+1. ASSIGNMENT AND STARTER REVIEW
+
+Delegated:
+
+I asked the AI assistant to review the Chapter 16 capstone instructions and the
+four starter files, identify every Normal-tier deliverable, and propose a
+repository structure.
+
+
+Agent produced:
+
+A draft six-document structure, adapted-config plan, validation steps, and a
+list of external facts that required current verification.
+
+
+Human intervention:
+
+I retained the Normal-tier scope.
+
+I personally confirm the final hybrid architecture, the private-data boundary,
+and the autonomy ceiling before submission.
+
+
+2. ARCHITECTURE COMPLETENESS
+
+Delegated:
+
+I asked the assistant to check the design against both halves of the Chapter
+16 architecture:
+
+traditional enterprise components
+
+and
+
+AI-native components.
+
+
+Agent produced:
+
+A two-lane architecture draft:
+
+training/evaluation
+
+and
+
+private inference
+
+on one control plane, plus an approved external API lane.
+
+
+Human intervention:
+
+I chose not to build a foundation-model training estate.
+
+CRI's training lane is limited to:
+
+evaluation
+
+and
+
+approved adapter/task-specific fine-tuning.
+
+
+The restricted beneficiary RAG remains private.
+
+
+3. VERSION AND REGULATION VERIFICATION
+
+Issue caught:
+
+The starter comments contained time-sensitive version and legal statements.
+
+An initial draft could have carried forward:
+
+Kubernetes DRA as GA in v1.34
+
+and
+
+the AI Omnibus as provisional.
+
+
+Human intervention:
+
+I required primary-source verification.
+
+The final design records:
+
+Kubernetes DRA:
+stable in v1.35
+
+NVIDIA GPU Operator:
+26.3.3
+
+EU AI Omnibus:
+entered into force 2026-07-27
+
+Project verification date:
+2026-08-10
+
+
+4. COST MODEL
+
+Delegated:
+
+I asked the assistant to run and extend the supplied estate_cost.py so it would
+show the self-host/API crossover instead of only the current monthly costs.
+
+
+Agent produced:
+
+At 500M tokens/month:
+
+API examples:
+$500-$5,000/month
+
+Illustrative 8xH100:
+$22,000/month
+
+
+The theoretical crossover values are:
+
+2.20B
+to
+22.00B
+
+tokens/month depending on the API model.
+
+
+All are above the starter node's:
+
+1.5B-token monthly capacity.
+
+
+Human intervention:
+
+I do not claim that 8xH100 self-hosting is cheaper.
+
+I use private inference for beneficiary RAG only where:
+
+privacy
+residency
+control
+auditability
+resilience
+
+justify the additional operational burden.
+
+
+5. SECURITY PLAN
+
+Delegated:
+
+I asked the assistant to draft an OWASP LLM Top 10 (2025) to MITRE ATLAS
+crosswalk and trust-boundary design for CRI's local model and case-note RAG.
+
+
+Agent produced:
+
+A threat-map draft covering:
+
+prompt injection
+sensitive-data disclosure
+supply chain
+poisoning
+output handling
+excessive agency
+prompt leakage
+RAG/vector weaknesses
+misinformation
+unbounded consumption
+
+
+Human intervention:
+
+I kept the crosswalk as a defensive mapping rather than claiming the two
+taxonomies are identical.
+
+I made the Rule-of-Two boundary explicit:
+
+the restricted RAG can read private and untrusted content
+
+but
+
+it has no arbitrary outbound tool.
+
+
+6. DEEPFAKE CONTROL
+
+Delegated:
+
+I asked for a security control that addresses CRI's almost-fraudulent
+deepfaked-CFO request.
+
+
+Agent produced:
+
+out-of-band verification
+and
+two-person approval
+
+
+Human intervention:
+
+I set the final rule:
+
+No video, voice, chat, or email alone authorizes a wire transfer or bank-detail
+change.
+
+Finance must call a known trusted directory number and obtain a second named
+human approval.
+
+
+7. AUTONOMY LADDER
+
+Delegated:
+
+I asked the assistant to adapt the starter so all four rungs were represented
+and every action had:
+
+an owner
+a gate
+a guardrail
+a rationale
+an audit path
+
+
+Agent produced:
+
+OBSERVE:
+read telemetry
+
+RECOMMEND:
+patch priority
+volume deletion
+firewall changes
+
+APPROVE:
+scaling
+credential rotation
+model promotion
+
+ACT:
+one-pod restart
+rebuildable embedding index
+
+
+Human intervention:
+
+I keep irreversible deletion and trust-boundary changes below automatic
+execution.
+
+I permit ACT only for narrow, reversible actions with independent
+verification.
+
+
+8. DOCUMENTATION
+
+Delegated:
+
+I used AI to draft the initial text documents, architecture layout, Word
+executive summary, sizing calculations, and configuration scaffolding.
+
+
+Human responsibility:
+
+Before submission I will paraphrase and personally review:
+
+architecture judgment
+AI strategy
+automation rationale
+security tradeoffs
+cost recommendation
+governance judgment
+executive summary
+
+
+I will not change verified:
+
+script outputs
+framework names
+dates
+technique IDs
+model IDs
+commands
+cost arithmetic
+
+unless verification shows they are wrong.
+
+
+AI did not:
+
+approve a production action;
+accept risk;
+authorize spending;
+classify a real CRI system under law;
+sign a governance decision on my behalf.

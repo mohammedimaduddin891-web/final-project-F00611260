@@ -1,0 +1,228 @@
+FINAL CAPSTONE - AUTOMATION PLAN
+
+Cornerstone Relief International (CRI)
+Normal Tier
+
+
+1. OPERATING MODEL
+
+CRI uses AIOps for:
+
+- detection;
+- correlation;
+- diagnosis;
+- recommendation;
+- bounded remediation.
+
+Every action is classified before an agent is allowed to execute it.
+
+The decision tests are:
+
+1. Is the action reversible?
+2. What is the blast radius?
+3. Could it destroy or expose data?
+4. Could it weaken security?
+5. Could it create recurring financial cost?
+6. How many systems, users, or offices could it affect?
+
+
+CLOSED LOOP
+
+EVENT
+  ->
+OBSERVE
+  ->
+DIAGNOSE
+  ->
+PROPOSE
+  ->
+POLICY CHECK
+  ->
+HUMAN GATE WHEN REQUIRED
+  ->
+ACT
+  ->
+VERIFY UNDERLYING SIGNAL
+  ->
+AUDIT
+
+
+2. AUTONOMY LADDER
+
+
+OBSERVE
+
+Example:
+
+read_observability
+
+The agent may read:
+
+- OpenTelemetry metrics;
+- logs;
+- traces;
+- Kubernetes status;
+- GPU telemetry;
+- model telemetry.
+
+It cannot write externally or change state.
+
+The action is still logged with actor identity and timestamp.
+
+
+RECOMMEND
+
+Examples:
+
+propose_patch_priority
+delete_persistent_volume
+modify_firewall_rule
+
+The agent may explain evidence and draft a change.
+
+A human performs or schedules the action.
+
+Persistent-volume deletion is irreversible.
+
+Firewall changes alter a trust boundary.
+
+These actions are intentionally kept below automatic execution.
+
+
+APPROVE
+
+Examples:
+
+scale_deployment
+rotate_credential
+promote_model_to_production
+
+The agent may prepare the exact action.
+
+A named human approves one action after the relevant checks.
+
+Scaling has:
+
+- a maximum replica delta;
+- cost review;
+- automatic rollback.
+
+Credential rotation requires:
+
+- out-of-band identity verification;
+- one credential per approval;
+- rollback planning.
+
+Model promotion requires:
+
+- evaluation;
+- model card;
+- datasheet;
+- AIBOM;
+- privacy review;
+- security review;
+- rollback alias;
+- named human approval.
+
+
+ACT
+
+Examples:
+
+restart_stateless_pod
+rebuild_embedding_index
+
+Automatic action is limited to low-blast-radius and reversible work.
+
+A stateless restart is:
+
+- restricted to one pod;
+- rate-limited;
+- independently verified.
+
+An embedding-index rebuild:
+
+- creates a new derived index;
+- reads only a signed source corpus;
+- validates the new index;
+- switches the alias only after validation;
+- never deletes the source documents.
+
+
+3. AUDIT AND VERIFICATION
+
+Every:
+
+- proposal;
+- gate decision;
+- approval;
+- action;
+- verification result;
+- model ID;
+- human identity;
+- UTC timestamp
+
+is appended to a WORM audit target.
+
+Agents do not receive permission to rewrite audit history.
+
+VERIFY checks the original service signal rather than merely checking a command
+exit code.
+
+A command can exit 0 while:
+
+- the service remains unhealthy;
+- the wrong object was changed;
+- capacity remains inadequate;
+- a new security problem was introduced;
+- a new cost problem was introduced.
+
+
+4. RULE OF TWO
+
+An unsupervised agent must never simultaneously have:
+
+1. untrusted content;
+2. sensitive or private-data access;
+3. an unrestricted external or mutating tool.
+
+The restricted case-note RAG necessarily reads private data and may retrieve
+untrusted text.
+
+Therefore it has no arbitrary outbound communication path.
+
+Sensitive exports and mutating actions cross a named human gate.
+
+
+5. OWNERSHIP
+
+Policy owner:
+
+Maya Chen - Director of IT
+
+Infrastructure approvals:
+
+Daniel Okoro
+
+Security and credential approvals:
+
+Sofia Alvarez
+
+Model-promotion technical owner:
+
+Leah Mensah
+
+Beneficiary privacy and data gate:
+
+Grace Kim
+
+AIOps operations owner:
+
+Samuel Reed
+
+
+6. ACCOUNTABILITY
+
+The human approver is accountable for the decision.
+
+The AI agent is never the risk-acceptance authority.
