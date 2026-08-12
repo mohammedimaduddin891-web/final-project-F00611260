@@ -7,15 +7,16 @@ Student ID:
 F00611260
 
 
-Cornerstone Relief International (CRI) is a 600 person, relief and development organization.
-Continental continents and 28 countries.Main headquarters staff of nine and staff at 48 countries and their field offices around the world.
-continents.
+Cornerstone Relief International (CRI) is a 600-person relief and development
+organization with field offices on four continents and a nine-person
+headquarters IT team.
 
-A hybrid architecture with privacy-first AI is used for the design. Low-sensitivity work
-may be based on approved external API's. Restricted Beneficiary Case note RAG is still pending.
-on a private controlled inferred lane. It requires human judgement to be applied to:
-indelible, secure, private, monetary sensitive and
-high-blast-radius actions.
+The design uses a hybrid, privacy-first AI architecture. Approved external
+APIs may be used for low-sensitivity work, while restricted beneficiary
+case-note RAG remains on a private controlled inference lane.
+
+Human approval is required for irreversible, security-sensitive,
+privacy-sensitive, financially material, or high-blast-radius actions.
 
 
 REQUIRED DOCUMENTS
@@ -163,19 +164,19 @@ PY
 
 SAFETY AND DESIGN POSITION
 
-The guard position is optional and designed to protect the worker's safety.
+Restricted beneficiary case notes are never sent to public consumer chatbots.
 
-Only consumer case notes that have been restricted are fed into the public consumer chatbots.
+Private RAG uses identity-scoped retrieval and has no arbitrary outbound
+egress.
 
-Private RAG only supports identity scoped retrieval and no arbitrary outbound egress.
+Financial changes require out-of-band verification using trusted contact
+information and a second named human approval.
 
-Financial changes must be verified by an out-of-band number that is known, and there must be two names.
-human approvals.
+Irreversible actions and security-boundary changes are not performed
+unattended.
 
-There are no irreversible and security-boundary actions that are unattended.
-
-Each governed control has a human named owner, an artefact and a gate or
-cadence.
+Each governed control has a named human owner, an artifact, and a gate or
+review cadence.
 
 
 AI HONESTY
