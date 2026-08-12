@@ -1,9 +1,13 @@
 # CRI 2030 AI-native inference/training reference.
 # Planning architecture only - not a deploy-ready Kubernetes manifest.
 # Technical version lines were checked 2026-08-10 and must be rechecked at implementation.
+#
+# DRA note:
+# The core of Kubernetes DRA graduated to GA in v1.34. CRI deliberately uses
+# Kubernetes 1.35.x as this reference baseline, where DRA is stable/enabled by default.
 
 organization: "Cornerstone Relief International"
-version: 2
+version: 3
 checked_date: "2026-08-10"
 
 platform:
@@ -42,9 +46,18 @@ platform:
     runtime: "kserve"
     api: "openai-compatible"
     model_source: "signed-oci-artifact"
+
     candidate_model_id: "Qwen/Qwen3-14B"
+    candidate_model_revision_checked: "40c0698"
+    candidate_model_revision_checked_date: "2026-08-10"
+
     quantization_target: "INT4"
-    production_revision_policy: "immutable model revision or OCI digest required before promotion"
+
+    production_revision_policy: >-
+      production promotion must pin a full immutable model revision
+      or signed OCI digest; the short candidate revision above is
+      planning evidence only
+
     rag:
       system: "beneficiary-case-note-rag"
       data_class: "restricted-beneficiary"
@@ -58,20 +71,24 @@ platform:
       - "public"
       - "internal-low-sensitivity"
       - "de-identified"
+
     prohibited_data:
       - "beneficiary case notes"
       - "medical details"
       - "credentials"
       - "donor payment data"
+
     egress: "approved-provider allowlist through central gateway"
 
   governance_hooks:
     model_registry: "required"
-    model_id_pinned: true
+    candidate_revision_recorded: true
+    production_immutable_revision_required: true
     aibom: "required-per-release"
     audit_log: "WORM-object-lock"
     agent_interop: "MCP with least-privilege tool scopes"
     spend_cap_usd_per_day: 200
+
     human_approval_for:
       - "model promotion"
       - "credential rotation"
@@ -85,8 +102,10 @@ platform:
       - "fine-tuned weights"
       - "model registry metadata"
       - "AIBOM and evaluation evidence"
+
     rebuildable:
       - "embeddings"
       - "vector indexes"
       - "derived caches"
+
     recovery_rule: "restore protected sources first, then rebuild derived AI artifacts"

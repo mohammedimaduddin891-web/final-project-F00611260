@@ -16,9 +16,11 @@ https://www.nist.gov/itl/ai-risk-management-framework
 https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook
 
 
-EU AI Act:
+EU AI Act and AI Omnibus:
 
 https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
 
 https://digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force
 
@@ -32,6 +34,8 @@ OWASP GenAI / LLM Top 10:
 
 https://genai.owasp.org/llm-top-10/
 
+https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/
+
 
 MITRE ATLAS:
 
@@ -39,13 +43,19 @@ https://atlas.mitre.org/
 
 https://github.com/mitre-atlas/atlas-data
 
+https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/dist/ATLAS.yaml
+
 
 Kubernetes Dynamic Resource Allocation:
 
+Core DRA GA history:
+https://kubernetes.io/blog/2025/09/01/kubernetes-v1-34-dra-updates/
+
+Current DRA documentation:
 https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/
 
 
-NVIDIA GPU Operator release notes:
+NVIDIA GPU Operator:
 
 https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/release-notes.html
 
@@ -54,14 +64,8 @@ Qwen3-14B candidate model:
 
 https://huggingface.co/Qwen/Qwen3-14B
 
+Commit history:
+https://huggingface.co/Qwen/Qwen3-14B/commits/main
 
-COST NOTE
-
-The API prices in code/estate_cost.py are course snapshots supplied by the
-starter file.
-
-They are illustrative.
-
-They are not current vendor quotes.
-
-They must be rechecked before a real procurement decision.
+Short repository revision observed during final research:
+40c0698

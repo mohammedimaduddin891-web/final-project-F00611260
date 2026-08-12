@@ -9,83 +9,61 @@ Threat map checked:
 
 1. TRADITIONAL SECURITY BASELINE
 
-
 IDENTITY
 
-CRI uses:
-
-- federated identity;
-- phishing-resistant MFA or passkeys for privileged users;
-- role-based access;
-- just-in-time privilege for administrators;
-- separate workload identities for services and agents;
-- rapid joiner/mover/leaver processing.
+All of CRI's privileged access uses federated identity and phishing-resistant MFA/passkeys.
+To access resources and services, users must log in with a username and password.Access to resources and services requires users to provide credentials (username and password).
+workload identities for services and agents, and quick joiners/movers/leavers
+processing.
 
 
 LEAST PRIVILEGE
 
-Every human and AI agent receives only the data and tools required for the
+All the data and tools needed are provided just to every human and AI agent.
 current role.
 
-Agent credentials are not shared with humans or other agents.
+The credentials of the agents are not passed on to humans or other agents.
 
-RAG retrieval uses the authenticated user's identity and document ACLs.
-
+For RAG retrieval, the authenticated user is utilized and document ACLs will be utilized.
 
 SEGMENTATION
 
-Separate security zones exist for:
+There are separate areas for security management, security enterprise applications and security donors.
+and financial systems, beneficiary information, AI inferences and development.
 
-- management;
-- enterprise applications;
-- donor and finance systems;
-- beneficiary data;
-- AI inference;
-- development.
+The RAG endpoint of the beneficiary is not public.
 
-The beneficiary RAG endpoint is private.
+By default, the data plane of its egresses are deny.
 
-Its data plane has default-deny outbound egress.
+Only via an approved gateway with DLP policy: External AI APIs are accessed only through a gateway with a DLP policy.
 
-External AI APIs are reached only through an approved gateway with DLP policy.
 
 
 2. DEEPFAKE-RESISTANT PAYMENT CONTROL
 
-No:
-
-- video call;
-- voice call;
-- email;
-- chat message;
-- AI-generated message
-
-can by itself authorize a wire transfer or bank-detail change.
+Not a single video call, voice call, email, chat message or AI-generated message can be replaced by any of the other methods.
+It can be used to authorize itself a wire transfer or a change in bank details.
 
 Finance must:
 
-1. call a known number already stored in the trusted directory;
-2. verify the requester out of band;
-3. obtain a second named human approval.
+1. make a call on a known number which is already stored in a trusted directory;
+2. check the identity of the requester off-line;
+3. get 2nd human naming.
 
-A phone number, QR code, or link supplied inside the suspicious message is
-never used for verification.
+An inside number, QR code or link provided in the suspicious message is
+Has never had to be used for verification.
+
 
 
 3. BACKUP AND RANSOMWARE CONTROL
 
-Donor and beneficiary systems use:
+Access controls, and immutable off-site backups and least-privilege access control are applied to donor/beneficiary systems.
+Backup credentials, tested restoration and documented RPO/RTO.
 
-- immutable off-site backups;
-- least-privilege backup credentials;
-- tested restoration;
-- documented RPO/RTO.
-
-Backup control planes are separated from routine administrator credentials.
+Backup control planes are also distinct from the normal administrator's credentials.
 
 
 4. AI TRUST BOUNDARIES
-
 
 BOUNDARY A - USER TO APPLICATION
 
@@ -96,28 +74,16 @@ Classify the data before choosing the model lane.
 
 BOUNDARY B - RETRIEVAL TO MODEL
 
-Retrieved:
+Retrieved webpages, tickets, documents, filenames, and case notes are
+UNTRUSTED CONTENT.
 
-- webpages;
-- tickets;
-- documents;
-- filenames;
-- case notes
-
-are UNTRUSTED CONTENT.
-
-They are wrapped as data.
-
-They cannot grant tool authority or override system policy.
+They are wrapped as data and cannot grant tool authority or override system
+policy.
 
 
 BOUNDARY C - MODEL OR AGENT TO TOOLS
 
-MCP and other tool access is:
-
-- allowlisted;
-- least privilege;
-- identity-scoped.
+MCP and other tool access is allowlisted, least privilege, and identity-scoped.
 
 High-impact tools are unavailable without an approval gate.
 
@@ -126,38 +92,29 @@ Tool descriptions and tool responses are also treated as untrusted input.
 
 BOUNDARY D - AI TO EXTERNAL SYSTEMS
 
-Restricted beneficiary RAG has no arbitrary:
+Restricted beneficiary RAG has no arbitrary outbound HTTP, email, or export
+tool.
 
-- outbound HTTP;
-- email;
-- export tool.
-
-Approved exports require:
-
-- destination allowlist;
-- DLP;
-- audit logging;
-- human approval.
+Approved exports require destination allowlists, DLP, audit logging, and human
+approval.
 
 This implements the Rule of Two against the lethal trifecta.
 
 
 BOUNDARY E - OUTPUT TO DOWNSTREAM SYSTEM
 
-LLM output is never directly executed as:
-
-- shell;
-- SQL;
-- HTML;
-- policy;
-- payment instruction.
+LLM output is never directly executed as shell, SQL, HTML, policy, or payment
+instructions.
 
 Structured output is schema-validated.
 
 Privileged actions require separate authorization.
 
 
-5. OWASP LLM TOP 10 (2025) TO MITRE ATLAS MAP
+5. OWASP LLM TOP 10 (2025) TO MITRE ATLAS DEFENSIVE CROSSWALK
+
+This is a pedestrian crosswalk which is used for protection. The OWASP and MITRE ATLAS are two separate taxonomies,
+That is, not all the rows are perfect one-to-one correspondences.
 
 
 LLM01 - PROMPT INJECTION
@@ -168,12 +125,12 @@ AML.T0051
 LLM Prompt Injection
 
 AML.T0051.001
-Indirect Prompt Injection
+Indirect
 
 CRI risk:
 
-Malicious text in a case note, ticket, or webpage changes the model's intended
-behavior.
+Malicious text in a case note, ticket, webpage, or other retrieved source
+changes the model's intended behavior.
 
 Controls:
 
@@ -224,7 +181,7 @@ production.
 
 Controls:
 
-- pinned versions;
+- pinned versions/revisions;
 - immutable digests;
 - signatures;
 - AIBOM;
@@ -238,7 +195,7 @@ LLM04 - DATA AND MODEL POISONING
 MITRE ATLAS:
 
 AML.T0020
-Training Data Poisoning
+Poison Training Data
 
 AML.T0070
 RAG Poisoning
@@ -291,8 +248,8 @@ Exfiltration via AI Agent Tool Invocation
 
 CRI risk:
 
-An agent performs a valid but unauthorized destructive, security-sensitive, or
-external action.
+An agent performs a technically valid but unauthorized destructive,
+security-sensitive, or external action.
 
 Controls:
 
@@ -362,7 +319,7 @@ LLM Trusted Output Components Manipulation
 AML.T0048
 External Harms
 
-This is not a perfect one-to-one mapping.
+This is not presented as a perfect one-to-one mapping.
 
 CRI risk:
 
@@ -400,34 +357,32 @@ Controls:
 
 6. AI SECURITY TESTING
 
-Quarterly tests include:
+Each quarter, tests are performed that involve direct prompt injection, indirect RAG prompt injection,
+The capacity to retrieve data from other users, malicious tool data, too much agency, output.
+Failure to validation, cost-exhaustion scenarios.
 
-- direct prompt injection;
-- indirect RAG prompt injection;
-- cross-user retrieval;
-- malicious tool metadata;
-- excessive agency;
-- output validation failures;
-- cost exhaustion.
+Findings are converted to Tracking Remediation Tickets.
 
-Findings become tracked remediation tickets.
-
-Model or tool expansion cannot bypass security review simply because the system
-is AI-assisted.
+Because the "model" or "tool" is not or cannot be given to the security team to review.
+system is AI-assisted.
 
 
 7. ACCOUNTABILITY
 
 Security control owner:
-
 Sofia Alvarez
 
 Beneficiary data-protection owner:
-
 Grace Kim
 
 Operational/accountable executive:
-
 Maya Chen
 
-No AI model or agent may accept risk on behalf of those humans.
+No AI model or agent may accept organizational risk on behalf of those humans.
+
+
+SOURCE NOTE
+
+Suppose that the OWASP 2025 risk edition and MITRE ATLAS technique names/IDs listed here are used.Assume that the technique names/IDs from OWASP 2025 risk edition and MITRE ATLAS are used in this.
+Final review was made to recheck crosswalk. Primary URLs are given in
+sources.txt.

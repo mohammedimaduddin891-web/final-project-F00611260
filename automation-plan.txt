@@ -1,228 +1,151 @@
 FINAL CAPSTONE - AUTOMATION PLAN
 
 Cornerstone Relief International (CRI)
-Normal Tier
 
 
 1. OPERATING MODEL
 
-CRI uses AIOps for:
+AIOps is used by CRI to detect, correlate, diagnose, recommend and
+bounded remediation.
 
-- detection;
-- correlation;
-- diagnosis;
-- recommendation;
-- bounded remediation.
-
-Every action is classified before an agent is allowed to execute it.
+The Type of an action is specified prior to allowing execution by an agent.
 
 The decision tests are:
 
 1. Is the action reversible?
 2. What is the blast radius?
 3. Could it destroy or expose data?
-4. Could it weaken security?
+4. Could it weaken a security boundary?
 5. Could it create recurring financial cost?
 6. How many systems, users, or offices could it affect?
 
+Closed loop:
 
-CLOSED LOOP
-
-EVENT
-  ->
-OBSERVE
-  ->
-DIAGNOSE
-  ->
-PROPOSE
-  ->
-POLICY CHECK
-  ->
-HUMAN GATE WHEN REQUIRED
-  ->
-ACT
-  ->
-VERIFY UNDERLYING SIGNAL
-  ->
-AUDIT
+EVENT -> OBSERVE -> DIAGNOSE -> PROPOSE -> POLICY CHECK ->
+HUMAN GATE WHEN REQUIRED -> ACT -> VERIFY UNDERLYING SIGNAL -> AUDIT
 
 
 2. AUTONOMY LADDER
 
-
 OBSERVE
 
 Example:
-
 read_observability
 
-The agent may read:
-
-- OpenTelemetry metrics;
-- logs;
-- traces;
-- Kubernetes status;
-- GPU telemetry;
-- model telemetry.
-
-It cannot write externally or change state.
-
-The action is still logged with actor identity and timestamp.
-
+The agent can consume the OpenTelemetry metrics, logs, traces, Kubernetes status,
+Model telemetry, and GPU telemetry. It is unable to write on external or modify something.
+system state. The observation is not only recorded with actor identification but also a UTC
+timestamp.
 
 RECOMMEND
 
 Examples:
-
 propose_patch_priority
 delete_persistent_volume
 modify_firewall_rule
 
-The agent may explain evidence and draft a change.
+The agent might give the evidence and draft a change. A human performs or
+schedules the action.
 
-A human performs or schedules the action.
-
-Persistent-volume deletion is irreversible.
-
-Firewall changes alter a trust boundary.
-
-These actions are intentionally kept below automatic execution.
+Persistent-volume deletion is still in RECOMMEND due to it being able to cause
+irreversible data loss. Firewall changes are left at RECOMMEND as they change
+Can be used to create a security trust boundary and open several systems.
 
 
 APPROVE
 
 Examples:
-
 scale_deployment
 rotate_credential
 promote_model_to_production
 
-The agent may prepare the exact action.
+The agent can create the precise action, however, an approved action by a named human.
+Once the appropriate checks (see below) have been made.
 
-A named human approves one action after the relevant checks.
-
-Scaling has:
-
-- a maximum replica delta;
-- cost review;
-- automatic rollback.
-
-Credential rotation requires:
-
-- out-of-band identity verification;
-- one credential per approval;
-- rollback planning.
-
-Model promotion requires:
-
-- evaluation;
-- model card;
-- datasheet;
-- AIBOM;
-- privacy review;
-- security review;
-- rollback alias;
-- named human approval.
-
+Scaling is reversible, but it alters the capacity and recurrent expenditures. Credential
+rotation is more secure and needs out of band identity verification.
+to model promotion, one needs to change the behaviour of the models and that introduces risk in the handling of data (and in the model).
+The process of evaluation, model/data documentation, AIBOM, privacy/security review, a rollback
+Approval from the target, and human approval.
 
 ACT
 
 Examples:
-
 restart_stateless_pod
 rebuild_embedding_index
 
-Automatic action is limited to low-blast-radius and reversible work.
+Only reversible work can be automatic action.
 
-A stateless restart is:
+A stateless restart can only occur in one pod, is rate limited, and is independent.
+verified.
 
-- restricted to one pod;
-- rate-limited;
-- independently verified.
+Embedding index rebuild is a new derived index that is produced from a signed source.
+corpus validates the new index, and only switches an alias once it is validated.
+Does not delete protected sources documents.
 
-An embedding-index rebuild:
+3. REAL AUTONOMY VALIDATION
 
-- creates a new derived index;
-- reads only a signed source corpus;
-- validates the new index;
-- switches the alias only after validation;
-- never deletes the source documents.
+The final validation was executed and saved to:
 
+output/autonomy-tier-check.txt
 
-3. AUDIT AND VERIFICATION
+Actual result:
 
-Every:
-
-- proposal;
-- gate decision;
-- approval;
-- action;
-- verification result;
-- model ID;
-- human identity;
-- UTC timestamp
-
-is appended to a WORM audit target.
-
-Agents do not receive permission to rewrite audit history.
-
-VERIFY checks the original service signal rather than merely checking a command
-exit code.
-
-A command can exit 0 while:
-
-- the service remains unhealthy;
-- the wrong object was changed;
-- capacity remains inadequate;
-- a new security problem was introduced;
-- a new cost problem was introduced.
+tiers: ['act', 'approve', 'observe', 'recommend']
+AUTONOMY LADDER PASS
 
 
-4. RULE OF TWO
+4. AUDIT AND VERIFICATION
 
-An unsupervised agent must never simultaneously have:
+All proposals, gate decisions, approvals, actions, verification results, model IDs etc.
+UTC timestamp is added to a WORM audit target.
+
+The agents are not allowed to modify the audit history.
+
+VERIFY is not just about verifying if a service signal exists; it's also about verifying the original service signal.
+The command exited with codes: 0. The Service can still be unsuccessful
+unhealthy, replace the incorrect resource, introduce a security issue, or make
+an unplanned cost.
+
+
+5. RULE OF TWO
+
+An agent may never be an unsupervised agent at the same time as he or she has:
 
 1. untrusted content;
 2. sensitive or private-data access;
 3. an unrestricted external or mutating tool.
 
-The restricted case-note RAG necessarily reads private data and may retrieve
-untrusted text.
+The private data is unavoidably read by the restricted case-note RAG and the case-note RAG may retrieve.
+untrusted text. It is, therefore, without an arbitrary communication path towards the outside.
 
-Therefore it has no arbitrary outbound communication path.
-
-Sensitive exports and mutating actions cross a named human gate.
+Named human gate is traversed by the sensitive exports and by mutating actions.
 
 
-5. OWNERSHIP
+6. OWNERSHIP
 
 Policy owner:
-
 Maya Chen - Director of IT
 
 Infrastructure approvals:
-
-Daniel Okoro
+Daniel Okoro - Infrastructure and Cloud Lead
 
 Security and credential approvals:
-
-Sofia Alvarez
+Sofia Alvarez - Security and Identity Lead
 
 Model-promotion technical owner:
-
-Leah Mensah
+Leah Mensah - ML Platform Engineer
 
 Beneficiary privacy and data gate:
-
-Grace Kim
+Grace Kim - Data Protection and Beneficiary Systems Lead
 
 AIOps operations owner:
+Samuel Reed - SRE and Automation Lead
 
-Samuel Reed
 
+7. ACCOUNTABILITY
 
-6. ACCOUNTABILITY
+The named human approver continues to be responsible for the approval.
 
-The human approver is accountable for the decision.
-
-The AI agent is never the risk-acceptance authority.
+The AI agent doesn't actually take any action; he or she only collects evidence and comes up with an action plan.
+risk-acceptance authority.
