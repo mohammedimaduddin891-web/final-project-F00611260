@@ -226,17 +226,19 @@ code/estate_cost.py
 
 7. DECISION TO DEFEND
 
-The private beneficiary-RAG decision is NOT a privacy and control decision but rather a what is the most favourable outcome for the private beneficiary decision; it is a decision which the private beneficiary will need to make.
+The private beneficiary-RAG decision is a privacy and control decision, not a
 token-cost claim.
 
-If CRI is able to get contractually protected private inference with equivalent
-Data residency, e.ggress restrictions, deletion guarantees, security controls,
-This requires nine-person IT staff, a significant amount of space and cost, and trouble-free operations and auditability.
-The team should rethink about investing in hardware dedicated to the GPUs.
+If CRI can obtain contractually protected private inference with equivalent
+data residency, egress restrictions, deletion guarantees, security controls,
+and auditability at substantially lower operational burden, the nine-person IT
+team should reconsider owning dedicated GPU infrastructure.
 
 
 SOURCE NOTE
 
-The course snapshots provided are the monthly API prices. They are deliberately
-Treated as sample and needs to be rechecked prior to actual procurement.
+The monthly API prices are course snapshots.
+
+They are illustrative rather than current vendor quotes and must be rechecked
+before a real procurement decision.
 
