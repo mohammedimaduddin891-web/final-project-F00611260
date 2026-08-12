@@ -6,14 +6,17 @@ Checked: 2026-08-10
 
 1. STRATEGIC POSITION
 
-CRI must get to the point of being AI-native but not AI-dependent. AI is an assistive
-The operating layer isn't meant to replace accountable, it is for a nine-person IT team.
-human judgment.
+CRI should become AI-native without becoming AI-dependent.
 
-The building design provides for greater separation of low sensitivity productivity use and limited access.
-beneficiary workloads. Public or general purpose AI services should never be given access to any data that would infringe on the privacy of end users.
-The case notes, medical information and credentials, and donor payments for beneficiaries.
-Other data that is limited or restricted.
+AI acts as an assistive operating layer for the nine-person IT team, but it
+does not replace accountable human judgment.
+
+The architecture separates low-sensitivity productivity workloads from
+restricted beneficiary workloads.
+
+Public or general-purpose AI services must never receive beneficiary case
+notes, medical information, credentials, donor payment information, or other
+restricted data.
 
 
 2. TOOL THREAD - WHAT CRI USES AI FOR
@@ -27,18 +30,23 @@ CRI uses AI as a tool for:
 - natural-language search over approved policy and operational knowledge;
 - assisting with ticket classification and repetitive service-desk work.
 
-f you do not specifically say you can do something with AI content, the AI will not show it in this thread.
-by the autonomy ladder. AI does not approve/reject a wire transfer, or change your identity
-A risk assessment, a risk acceptance or a governance decision is made by or on a firewall.
+AI output in this thread is advisory unless an action is specifically allowed
+by the autonomy ladder.
+
+AI does not independently authorize wire transfers, modify identity or firewall
+policy, accept organizational risk, or make governance decisions.
 
 3. WORKLOAD THREAD - WHAT CRI RUNS
 
 The primary restricted workload is a private beneficiary case-note RAG service.
 
-Only returns records which the authenticated user is already permitted to view.
-All retrieved documents will be considered untrusted data as well as instructions. The
-service is not arbitrarily externally exit and does not have the ability to email or export restricted.
-content that has not been approved via a workflow.
+It returns only records that the authenticated user is already authorized to
+view.
+
+Retrieved documents are treated as untrusted data, not as instructions.
+
+The service has no arbitrary external egress and cannot email or export
+restricted content without an approved workflow.
 
 Other planned workloads are:
 
@@ -108,22 +116,24 @@ Embeddings and vector indexes are considered to be derived sensitive data.
 
 BUY
 
-CRI acquires commercially available capabilities which the team of nine people does not need to reinvent:
-The following are some of the most popular features of secure identity and access management tooling:
-For low-sensitivity workloads, external AI APIs are available.
+CRI buys commodity capabilities that a nine-person IT team should not
+recreate, including identity services, security tooling, object storage,
+backup services, and approved external AI APIs for low-sensitivity workloads.
 
 BUILD
 
-CRI only creates the value and control layer that is specific to the CRI: retrieval policies,
-[Microsoft] connectors, evaluation suites, approval workflows, data classification,
-Observability, and governance integrations.
+CRI builds the CRI-specific value and control layer, including retrieval
+policies, connectors, evaluation suites, approval workflows, data
+classification, observability, and governance integrations.
 
 SELF-HOST / PRIVATE
 
-The private controlled inference lane at CRI maintains a beneficiary case-note RAG.
+CRI keeps beneficiary case-note RAG on a private controlled inference lane.
 
-This decision is based on privacy, residency, egress control, auditing and more.
-beneficiary trust. It is not made because the given 8xH100 cost model is not provided.
+This decision is based on privacy, data residency, controlled egress,
+auditability, and beneficiary trust.
+
+It is not based on the assumption that the supplied 8xH100 configuration is
 cheaper.
 
 6. ACTUAL COST EVIDENCE
@@ -153,9 +163,8 @@ $22,000/month
 1.5B-token monthly capacity
 $44.00/1M tokens at the 500M-token workload
 
-All four computed API/self-host crossover points are more than the provided
-The claimed 1.5B-token per month capacity of node.
-
+All four calculated API-to-self-host crossover points are above the supplied
+node's stated 1.5B-token monthly capacity.
 
 
 7. STANDARDS POSITION
@@ -174,14 +183,16 @@ Preferred contracts include:
 
 8. HUMAN JUDGMENT
 
-The last architectural placement is a blend of hybrid and conservative.
+The final architecture uses a hybrid and deliberately conservative approach.
 
-Automatic observation and narrow reversible repair is provided by CRI. Data deletion,
-changes in the security-boundary, model promotion, financial commitment, and sensitive changes in the model.
-Control over identity operations is in the hands of named human operators.
+CRI automates observation and narrow, reversible remediation.
 
-This boundary is intentional as it's the data of vulnerable people that CRI serves.
-cannot be used as an experiment.
+Data deletion, security-boundary changes, model promotion, financial
+commitments, and sensitive identity operations remain under named human
+control.
+
+This boundary is intentional because CRI handles sensitive information about
+vulnerable beneficiaries.
 
 
 SOURCE NOTE
