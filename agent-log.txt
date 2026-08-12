@@ -18,7 +18,8 @@ Proposed a repository organization, document structure, validation process and a
 
 Human review:
 
-Read and finalized the requirements and architecture (and project structure).
+I reviewed the requirements and finalized the architecture and project
+structure.
 
 2. ARCHITECTURE AND AI STRATEGY
 
@@ -36,7 +37,7 @@ Human decision:
 
 I retained the hybrid design for the reasons that CRI has a small IT team, 
 and that they work with very sensitive beneficiary information. 
-I would like to keep the set of beneficiaries for a restricted private AI path on a controlled private AI path.
+I kept restricted beneficiary information on a controlled private AI path.
 
 3. AUTONOMY AND AUTOMATION
 
@@ -65,8 +66,8 @@ AUTONOMY LADDER PASS
 
 Delegated:
 
-I was asked to use the provided cost script to also determine the theoretic API to self-host crossover, 
-which I did using AI assistance.
+I used AI assistance to extend the provided cost script so it also calculated
+the theoretical API-to-self-host crossover.
 
 I ran the script myself on the lab VM.
 
@@ -156,7 +157,8 @@ CAPSTONE NORMAL TIER EVIDENCE PASS
 
 7. FINAL RESPONSIBILITY
 
-AI used as a drafting, research and technical assistance tool.
+AI was used as a drafting, research, and technical-assistance tool.
 
-Finally, what happens with the architecture, beneficiary-data protection, limits of autonomy, 
-financial controls, security boundaries and the governance structure are up to my decision.
+Final decisions about architecture, beneficiary-data protection, autonomy
+limits, financial controls, security boundaries, and governance remain my
+responsibility.
