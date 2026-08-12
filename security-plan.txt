@@ -1,7 +1,6 @@
 FINAL CAPSTONE - SECURITY PLAN
 
 Cornerstone Relief International (CRI)
-Normal Tier
 
 Threat map checked:
 2026-08-10
@@ -41,26 +40,26 @@ Only via an approved gateway with DLP policy: External AI APIs are accessed only
 
 2. DEEPFAKE-RESISTANT PAYMENT CONTROL
 
-Not a single video call, voice call, email, chat message or AI-generated message can be replaced by any of the other methods.
-It can be used to authorize itself a wire transfer or a change in bank details.
+No video call, voice call, email, chat message, or AI-generated message can by
+itself authorize a wire transfer or a change to bank details.
 
 Finance must:
 
-1. make a call on a known number which is already stored in a trusted directory;
-2. check the identity of the requester off-line;
-3. get 2nd human naming.
+1. call a known number already stored in a trusted directory;
+2. verify the requester's identity out of band;
+3. obtain a second named human approval.
 
-An inside number, QR code or link provided in the suspicious message is
-Has never had to be used for verification.
-
+A phone number, QR code, or link supplied inside the suspicious message is
+never used for verification.
 
 
 3. BACKUP AND RANSOMWARE CONTROL
 
-Access controls, and immutable off-site backups and least-privilege access control are applied to donor/beneficiary systems.
-Backup credentials, tested restoration and documented RPO/RTO.
+Donor and beneficiary systems use immutable off-site backups,
+least-privilege backup credentials, tested restoration, and documented
+RPO/RTO targets.
 
-Backup control planes are also distinct from the normal administrator's credentials.
+Backup control planes are separated from normal administrator credentials.
 
 
 4. AI TRUST BOUNDARIES
@@ -113,8 +112,10 @@ Privileged actions require separate authorization.
 
 5. OWASP LLM TOP 10 (2025) TO MITRE ATLAS DEFENSIVE CROSSWALK
 
-This is a pedestrian crosswalk which is used for protection. The OWASP and MITRE ATLAS are two separate taxonomies,
-That is, not all the rows are perfect one-to-one correspondences.
+This is a defensive crosswalk.
+
+OWASP and MITRE ATLAS are different taxonomies, so not every mapping is a
+perfect one-to-one correspondence.
 
 
 LLM01 - PROMPT INJECTION
